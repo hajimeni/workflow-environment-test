@@ -34,6 +34,6 @@ jobs:
     uses: hajimeni/workflow-environment-test/.github/workflows/reusable_job.yml@main
     with:
       foo: ${{ needs.job1.outputs.test }}
-      environment: foo
+      environment: dev
     secrets:
       test: ${{ secrets.HOGE }}
