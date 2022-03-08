@@ -9,6 +9,9 @@ jobs:
       test-env: ${{ steps.env-output.outputs.env }}
       foo: ${{ env.FOO }}
       bar: ${{ steps.env-output.outputs.bar }}
+      job-env: ${{ env.JOB_ENV }}
+    env:
+      JOB_ENV: dev
     steps:
       - id: env-output
         name: foo
@@ -27,7 +30,7 @@ jobs:
   
   job2:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ needs.job1.outputs.job-env }}
     needs:
       - job1
     steps:
