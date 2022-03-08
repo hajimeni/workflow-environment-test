@@ -8,7 +8,7 @@ jobs:
       test: ${{ steps.env-output.outputs.test }}
       test-env: ${{ steps.env-output.outputs.env }}
       foo: ${{ env.FOO }}
-      bar: ${{ }}
+      bar: ${{ steps.env-output.outputs.bar }}
     steps:
       - id: env-output
         name: foo
