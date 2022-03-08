@@ -17,33 +17,23 @@ jobs:
         name: foo
         shell: bash
         env:
-          FOO: ${{ secrets.env }}
+          FOO: ${{ secrets.HOGE }}
         run: |
           bar=${FOO}
           echo "BAR=$bar" >> $GITHUB_ENV
           BAR=$bar
-          echo "JOB1_ENV=${{ secrets.env }} >> $GITHUB_ENV"
+          echo "JOB1_ENV=${ r{ secrets.env }} >> $GITHUB_ENV"
           echo "${{ secrets.env }}"
           echo "::set-output name=test::output_test"
           echo "::set-output name=env::${{ secrets.env }}"
           echo "::set-output name=bar::$BAR"
   
   job2:
-    runs-on: ubuntu-latest
-    environment: ${{ needs.job1.outputs.job-env }}-foo
     needs:
-      - job1
-    steps:
-      - name: dump context
-        run: echo '${{ toJSON(github) }}'
-      - name: dump GITHUB_ENV
-        run: cat $GITHUB_ENV
-      - name: dump other job output
-        run: |
-          echo env from secrets: ${{ secrets.env }}
-          echo test ${{ needs.job1.outputs.test }}
-          echo test-env ${{ needs.job1.outputs.test-env }}
-          echo foo ${{ needs.job1.outputs.foo }}
-          echo bar ${{ needs.job1.outputs.bar }}
-        
-    
+    - job1
+    uses: hajimeni/workflow-environment-test/.github/workflows/reusable_job.yml@main
+    with:
+      foo: ${{ needs.job1.outputs.test }}
+      environment: foo
+    secrets:
+      test: ${{ secrets.HOGE }}
