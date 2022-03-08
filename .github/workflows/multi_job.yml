@@ -30,7 +30,7 @@ jobs:
   
   job2:
     runs-on: ubuntu-latest
-    environment: ${{ needs.job1.outputs.job-env }}
+    environment: ${{ needs.job1.outputs.job-env }}-foo
     needs:
       - job1
     steps:
