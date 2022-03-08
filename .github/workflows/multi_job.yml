@@ -22,7 +22,7 @@ jobs:
           bar=${FOO}
           echo "BAR=$bar" >> $GITHUB_ENV
           BAR=$bar
-          echo "JOB1_ENV=${ r{ secrets.env }} >> $GITHUB_ENV"
+          echo "JOB1_ENV=${{ secrets.env }} >> $GITHUB_ENV"
           echo "${{ secrets.env }}"
           echo "::set-output name=test::output_test"
           echo "::set-output name=env::${{ secrets.env }}"
