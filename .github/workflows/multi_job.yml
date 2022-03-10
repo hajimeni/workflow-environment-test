@@ -1,15 +1,14 @@
 name: multi_job
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+    - synchronize
+    - opened
+
 jobs:
   job1:
     runs-on: ubuntu-latest
-    environment: dev
-    outputs:
-      test: ${{ steps.env-output.outputs.test }}
-      test-env: ${{ steps.env-output.outputs.env }}
-      foo: ${{ env.FOO }}
-      bar: ${{ steps.env-output.outputs.bar }}
-      job-env: ${{ env.JOB_ENV }}
     env:
       JOB_ENV: dev
     steps:
@@ -17,23 +16,6 @@ jobs:
         name: foo
         shell: bash
         env:
-          FOO: ${{ secrets.HOGE }}
+          GITHUB_CXT: ${{ fromJSON(github) }}
         run: |
-          bar=${FOO}
-          echo "BAR=$bar" >> $GITHUB_ENV
-          BAR=$bar
-          echo "JOB1_ENV=${{ secrets.env }} >> $GITHUB_ENV"
-          echo "${{ secrets.env }}"
-          echo "::set-output name=test::output_test"
-          echo "::set-output name=env::${{ secrets.env }}"
-          echo "::set-output name=bar::$BAR"
-  
-  job2:
-    needs:
-    - job1
-    uses: hajimeni/workflow-environment-test/.github/workflows/reusable_job.yml@main
-    with:
-      foo: ${{ needs.job1.outputs.test }}
-      environment: dev
-    secrets:
-      test: ${{ secrets.HOGE }}
+          echo "${{ env.GITHUB_CXT }}"
