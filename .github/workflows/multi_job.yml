@@ -8,7 +8,7 @@ on:
 
 jobs:
   job1:
-    uses: ./.github/workflows/resusable_job.yml
+    uses: ./.github/workflows/reusable_job.yml
     with:
       environment: dev
       foo: bar
