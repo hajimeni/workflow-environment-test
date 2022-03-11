@@ -19,4 +19,9 @@ jobs:
       - run: |
           echo "foo = ${{ inputs.foo }}"
           echo "test = ${{ secrets.test }}"
-          echo "hoge = ${{ secrets.HOGE }}"
+  test2:
+    needs: [ test ]
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "multi job!!"

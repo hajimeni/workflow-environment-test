@@ -8,14 +8,9 @@ on:
 
 jobs:
   job1:
-    runs-on: ubuntu-latest
-    env:
-      JOB_ENV: dev
-    steps:
-      - id: env-output
-        name: foo
-        shell: bash
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-          echo "$GITHUB_CONTEXT"
+    uses: ./.github/workflows/resuable_job.yml
+    with:
+      environment: dev
+      foo: bar
+    secrets:
+      test: ${{ secrets.HOGE }}
