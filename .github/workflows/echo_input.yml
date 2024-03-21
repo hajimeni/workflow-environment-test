@@ -1,0 +1,16 @@
+name: echo test
+on:
+  workflow_dispatch:
+    inputs:
+      foo:
+        required: true
+        description: 'foo'
+        type: string
+jobs:
+    run_echo:
+        runs-on: ubuntu-latest
+        steps:
+        - run: |
+            foo=${{ github.event.inputs.foo }}
+            echo "foo = ${{ github.event.inputs.foo }}" >> $GITHUB_STEP_SUMMARY
+            echo "foo = $foo" >> $GITHUB_STEP_SUMMARY
