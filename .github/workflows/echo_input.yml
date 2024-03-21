@@ -12,5 +12,5 @@ jobs:
         steps:
         - run: |
             foo=${{ github.event.inputs.foo }}
-            echo "foo = ${{ github.event.inputs.foo }}" >> $GITHUB_STEP_SUMMARY
-            echo "foo = $foo" >> $GITHUB_STEP_SUMMARY
+            echo "foo = `${{ github.event.inputs.foo }}`" >> $GITHUB_STEP_SUMMARY
+            echo "foo = `$foo`" >> $GITHUB_STEP_SUMMARY
