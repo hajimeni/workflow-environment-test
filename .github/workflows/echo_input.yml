@@ -11,10 +11,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - run: |
-            foo=${{ github.event.inputs.foo }}
-            echo $foo
-            echo "foo1 = \`${{ github.event.inputs.foo }}\`" >> $GITHUB_STEP_SUMMARY
-            echo -e "foo2 = ${{ github.event.inputs.foo }}" >> $GITHUB_STEP_SUMMARY
-            echo "foo3 = \`$foo\`" >> $GITHUB_STEP_SUMMARY
-            echo 'foo4 = $foo' >> $GITHUB_STEP_SUMMARY
+            echo "foo1 = ${{ toJson(github.event.inputs.foo) }}" >> $GITHUB_STEP_SUMMARY
+            echo "foo2 = ${{ github.event.inputs.foo }}" >> $GITHUB_STEP_SUMMARY
             
